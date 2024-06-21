@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  app:
+    working_dir: /app
+    image: node:18-alpine
+    volumes:
+      - ./:/app
+    tty: true
+    ports:
+      - "3000:3000"
+    command: yarn dev
+  api:
+    image: stoplight/prism:latest
+    container_name: "api"
+    ports:
+      - "3001:4010"
+    command: mock  -h 0.0.0.0 https://{openAPIのデプロイ先ホスト名}/openapi.yml
